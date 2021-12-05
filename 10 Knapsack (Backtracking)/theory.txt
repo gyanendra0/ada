@@ -1,0 +1,47 @@
+PROGRAM LOGIC: 
+The Backtracking Algorithm for the 0–1 Knapsack Problem is defined as: 
+Let n items be given, where each item has a weight and a profit. The weights and profits are positive integers. Furthermore, let a positive integer W be given. Determine a set of items with maximum total profit, under the constraint that the sum of their weights cannot exceed W. 
+
+PSEUDOCODE 
+
+Inputs: Positive integers n and W; arrays w and p, each indexed from 1 to n, and each containing positive integers sorted in nonincreasing order according to the values of p[i]/w[i]. 
+Outputs: an array bestset indexed from 1 to n, where the values of bestset[i] is "yes" if the ith item is included in the optimal set and is "no" otherwise; an integer maxprofit that is the maximum profit. void knapsack (index i, int profit, int weight) 
+{ 
+if (weight <= W&& profit > maxprofit){ // This set is best 
+maxprofit = profit; // so far. 
+numbest = i; // Set numbest to 
+bestset = include; // number of items 
+} // considered. Set 
+// bestset to this 
+// solution. 
+if (promising(i)){ 
+include [i + 1] = "yes"; // Include w[i + 1]. 
+knapsack(i + 1, profit + p[i + 1], weight + w[i + 1]); 
+include [i + 1] = "no"; // Do not include 
+knapsack (i + 1, profit, weight); // w[i + 1]. 
+} 
+} 
+bool promising (index i) 
+{ 
+index j, k; 
+int totweight; 
+float bound; 
+if (weight >= W) // Node is promising only 
+return false; // if we should expand to 
+else { // its children. There must 
+j = i + 1; // be some capacity left for 
+bound = profit; // the children. 
+totweight = weight; 
+while (j <= n && totweight + w[j] < = W){ 
+// Grab as many items as 
+totweight = totweight + w[j]; // possible. 
+bound = bound + p[j]; 
+j++; 
+} 
+k = j; // Use k for consistency 
+if (k <=n) // with formula in text. 
+bound = bound + (W - totweight) * p[k]/w[k]; 
+// Grab fraction of kth 
+return bound > maxprofit; // item. 
+} 
+} 
